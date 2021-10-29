@@ -1,6 +1,8 @@
 package com.local.orders.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "customers")
@@ -23,8 +25,13 @@ public class Customer {
     private String phone;
 
     @ManyToOne
-    @JoinColumn(name = "agent", nullable = false)
-    private Agent agent;
+    @JoinColumn(name = "agentcode", nullable = false)
+    private Agent agentcode;
+
+    @OneToMany(mappedBy = "custcode",
+                cascade = CascadeType.ALL,
+                orphanRemoval = true)
+    private List<Order> orders = new ArrayList<>();
 
     public Customer() {}
 
@@ -36,7 +43,7 @@ public class Customer {
                     double receiveamt,
                     double outstandingamt,
                     String phone,
-                    Agent agent) {
+                    Agent agentcode) {
         this.custname = custname;
         this.custcity = custcity;
         this.workingarea = workingarea;
@@ -45,6 +52,6 @@ public class Customer {
         this.receiveamt = receiveamt;
         this.outstandingamt = outstandingamt;
         this.phone = phone;
-        this.agent = agent;
+        this.agentcode = agentcode;
     }
 }

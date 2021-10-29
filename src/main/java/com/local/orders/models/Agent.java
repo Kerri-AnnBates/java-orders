@@ -19,7 +19,7 @@ public class Agent {
     private String phone;
     private String workingarea;
 
-    @OneToMany(mappedBy = "agent",
+    @OneToMany(mappedBy = "agentcode",
                 cascade = CascadeType.ALL,
                 orphanRemoval = true)
     private List<Customer> customers = new ArrayList<>();
