@@ -1,6 +1,8 @@
 package com.local.orders.models;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "payments")
@@ -13,5 +15,8 @@ public class Payment {
 
     @Column(nullable = false)
     private String type;
+
+    @ManyToMany(mappedBy = "payments")
+    Set<Order> orders = new HashSet<>();
 
 }
