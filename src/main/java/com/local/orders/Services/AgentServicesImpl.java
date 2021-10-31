@@ -1,7 +1,7 @@
 package com.local.orders.Services;
 
 import com.local.orders.models.Agent;
-import com.local.orders.repositories.AgentRepository;
+import com.local.orders.repositories.AgentsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,11 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class AgentServicesImpl implements AgentServices{
     @Autowired
-    private AgentRepository agentRepository;
+    private AgentsRepository agentsRepository;
 
     @Transactional
     @Override
     public Agent save(Agent agent) {
-        return agentRepository.save(agent);
+        return agentsRepository.save(agent);
     }
 }

@@ -1,14 +1,14 @@
-package com.lambdaschool.orders;
+package com.local.orders;
 
 import com.github.javafaker.Faker;
-import com.lambdaschool.orders.models.Agent;
-import com.lambdaschool.orders.models.Customer;
-import com.lambdaschool.orders.models.Order;
-import com.lambdaschool.orders.models.Payment;
-import com.lambdaschool.orders.repositories.AgentsRepository;
-import com.lambdaschool.orders.repositories.CustomersRepository;
-import com.lambdaschool.orders.repositories.OrdersRepository;
-import com.lambdaschool.orders.repositories.PaymentRepository;
+import com.local.orders.models.Agent;
+import com.local.orders.models.Customer;
+import com.local.orders.models.Order;
+import com.local.orders.models.Payment;
+import com.local.orders.repositories.AgentsRepository;
+import com.local.orders.repositories.CustomersRepository;
+import com.local.orders.repositories.OrdersRepository;
+import com.local.orders.repositories.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -21,8 +21,7 @@ import java.util.Set;
 
 @Transactional
 @Component
-public class SeedData
-        implements CommandLineRunner {
+public class SeedData implements CommandLineRunner {
     /**
      * Connects the customer table to this SeedData method
      */
@@ -63,8 +62,8 @@ public class SeedData
      */
     @Transactional
     @Override
-    public void run(String[] args) throws
-            Exception {
+    public void run(String[] args) throws Exception {
+
         Payment pay1 = new Payment("Cash");
         Payment pay2 = new Payment("Gift Card");
         Payment pay3 = new Payment("Credit Card");
@@ -76,63 +75,63 @@ public class SeedData
         pay4 = paymentrepos.save(pay4);
 
         Agent a01 = new Agent("Ramasundar",
-                "Bangalore",
                 0.15,
+                "Bangalore",
                 "077-25814763",
                 "");
         Agent a02 = new Agent("Alex",
-                "London",
                 0.13,
+                "London",
                 "075-12458969",
                 "");
         Agent a03 = new Agent("Alford",
-                "New York",
                 0.12,
+                "New York",
                 "044-25874365",
                 "");
         Agent a04 = new Agent("Ravi",
-                "Bangalore",
                 0.15,
+                "Bangalore",
                 "077-45625874",
                 "");
         Agent a05 = new Agent("Santakumar",
-                "Chennai",
                 0.14,
+                "Chennai",
                 "007-22388644",
                 "");
         Agent a06 = new Agent("Lucida",
-                "San Jose",
                 0.12,
+                "San Jose",
                 "044-52981425",
                 "");
         Agent a07 = new Agent("Anderson",
-                "Brisban",
                 0.13,
+                "Brisban",
                 "045-21447739",
                 "");
         Agent a08 = new Agent("Subbarao",
-                "Bangalore",
                 0.14,
+                "Bangalore",
                 "077-12346674",
                 "");
         Agent a09 = new Agent("Mukesh",
-                "Mumbai",
                 0.11,
+                "Mumbai",
                 "029-12358964",
                 "");
         Agent a10 = new Agent("McDen",
-                "London",
                 0.15,
+                "London",
                 "078-22255588",
                 "");
         Agent a11 = new Agent("Ivan",
-                "Torento",
                 0.15,
+                "Torento",
                 "008-22544166",
                 "");
         Agent a12 = new Agent("Benjamin",
-                "Hampshair",
                 0.11,
+                "Hampshair",
                 "008-22536178",
                 "");
 
@@ -158,7 +157,8 @@ public class SeedData
                 6000.00,
                 "CCCCCCC",
                 a08);
-        Customer c03 = new Customer("Albert",
+        Customer c03 = new Customer(
+                "Albert",
                 "New York",
                 "New York",
                 "USA",
@@ -555,8 +555,7 @@ public class SeedData
         Faker dataFaker = new Faker(new Locale("en-US"));
         Set<String> customerNames = new HashSet<>();
         for (int i = 0; i < 100; i++) {
-            customerNames.add(dataFaker.name()
-                    .fullName());
+            customerNames.add(dataFaker.name().fullName());
         }
 
         for (String theName : customerNames) {
