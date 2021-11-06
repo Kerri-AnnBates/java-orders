@@ -1,5 +1,7 @@
 package com.local.orders.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,7 @@ public class Agent {
     @OneToMany(mappedBy = "agentcode",
                 cascade = CascadeType.ALL,
                 orphanRemoval = true)
+    @JsonIgnoreProperties(value = "agentcode", allowSetters = true)
     private List<Customer> customers = new ArrayList<>();
 
     public Agent() {
