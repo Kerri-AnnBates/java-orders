@@ -33,4 +33,10 @@ public class CustomersController {
         Customer customer = customerServices.findCustomerById(id);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
+
+//    http://localhost:2019/customers/namelike/mes
+    @GetMapping(value = "/namelike/{subname}", produces = "application/json")
+    public ResponseEntity<?> getCustomersByLikeName(@PathVariable String subname) {
+        return new ResponseEntity<>(customerServices.findCustomerByLikeName(subname), HttpStatus.OK);
+    }
 }
