@@ -21,4 +21,10 @@ public class OrdersController {
     public ResponseEntity<?> getOrderById(@PathVariable long id) {
         return new ResponseEntity<>(orderServices.findById(id), HttpStatus.OK);
     }
+
+//    http://localhost:2019/orders/advanceamount
+    @GetMapping(value = "/advanceamount", produces = "application/json")
+    public ResponseEntity<?> getOrderAdvanceAmount() {
+        return new ResponseEntity<>(orderServices.findAllAdvanceAmountGreaterThan(), HttpStatus.OK);
+    }
 }
