@@ -3,13 +3,14 @@ package com.local.orders.controllers;
 import com.local.orders.Services.CustomerServices;
 import com.local.orders.models.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -38,5 +39,21 @@ public class CustomersController {
     @GetMapping(value = "/namelike/{subname}", produces = "application/json")
     public ResponseEntity<?> getCustomersByLikeName(@PathVariable String subname) {
         return new ResponseEntity<>(customerServices.findCustomerByLikeName(subname), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/customer", consumes = "application/json")
+    public ResponseEntity<?> addCustomer(@Valid @RequestBody Customer customer) {
+        customer.setCustcode(0);
+        customer = customerServices.save(customer);
+
+        // Create location header
+        HttpHeaders responseHeader = new HttpHeaders();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
+                .path("/{customerid}")
+                .buildAndExpand(customer.getCustcode())
+                .toUri();
+        responseHeader.setLocation(uri);
+
+        return new ResponseEntity<>(null, HttpStatus.CREATED);
     }
 }
