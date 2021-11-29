@@ -56,4 +56,12 @@ public class CustomersController {
 
         return new ResponseEntity<>(null, HttpStatus.CREATED);
     }
+
+    @PutMapping(value = "/customer/{id}", consumes = "application/json")
+    public ResponseEntity<?> updateFullCustomer(@Valid @RequestBody Customer updateCustomer, @PathVariable long id) {
+        updateCustomer.setCustcode(id);
+        updateCustomer = customerServices.save(updateCustomer);
+
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
 }
