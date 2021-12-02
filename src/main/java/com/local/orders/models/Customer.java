@@ -8,6 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "customers")
+@JsonIgnoreProperties(value = "hasOpeningamt, hasReceiveamt, hasPaymentamt, hasOutstandingamt")
 public class Customer {
 
     @Id
@@ -22,9 +23,21 @@ public class Customer {
     private String workingarea;
     private String custcountry;
     private String grade;
+
+    @Transient
+    public boolean hasOpeningamt;
     private double openingamt;
+
+    @Transient
+    public boolean hasReceiveamt;
     private double receiveamt;
+
+    @Transient
+    public boolean hasPaymentamt;
     private double paymentamt;
+
+    @Transient
+    public boolean hasOutstandingamt;
     private double outstandingamt;
     private String phone;
 
@@ -100,6 +113,7 @@ public class Customer {
     }
 
     public void setOpeningamt(double openingamt) {
+        hasOpeningamt = true;
         this.openingamt = openingamt;
     }
 
@@ -108,6 +122,7 @@ public class Customer {
     }
 
     public void setReceiveamt(double receiveamt) {
+        hasReceiveamt = true;
         this.receiveamt = receiveamt;
     }
 
@@ -116,6 +131,7 @@ public class Customer {
     }
 
     public void setPaymentamt(double paymentamt) {
+        hasPaymentamt = true;
         this.paymentamt = paymentamt;
     }
 
@@ -124,6 +140,7 @@ public class Customer {
     }
 
     public void setOutstandingamt(double outstandingamt) {
+        hasOutstandingamt = true;
         this.outstandingamt = outstandingamt;
     }
 
