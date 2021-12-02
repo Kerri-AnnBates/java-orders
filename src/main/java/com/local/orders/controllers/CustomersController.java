@@ -72,4 +72,11 @@ public class CustomersController {
 
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
+
+    @DeleteMapping(value = "/customer/{custcode}")
+    public ResponseEntity<?> deleteCustomer(@PathVariable long custcode) {
+        customerServices.delete(custcode);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
