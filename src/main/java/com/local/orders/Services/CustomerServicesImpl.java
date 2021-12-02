@@ -147,4 +147,13 @@ public class CustomerServicesImpl implements CustomerServices {
     public List<Customer> findCustomerByLikeName(String subname) {
         return customersRepository.findByCustnameContainingIgnoreCase(subname);
     }
+
+    @Override
+    public void delete(long id) {
+        if(customersRepository.findById(id).isPresent()) {
+            customersRepository.deleteById(id);
+        } else {
+            throw new EntityNotFoundException("Customer " + id + " not found!");
+        }
+    }
 }
