@@ -41,6 +41,7 @@ public class CustomerServicesImpl implements CustomerServices {
         newCustomer.setPaymentamt(customer.getPaymentamt());
         newCustomer.setOutstandingamt(customer.getOutstandingamt());
         newCustomer.setPhone(customer.getPhone());
+        newCustomer.setWorkingarea(customer.getWorkingarea());
         newCustomer.setAgent(agentServices.findById(customer.getAgent().getAgentcode()));
 
         newCustomer.getOrders().clear();
@@ -57,6 +58,75 @@ public class CustomerServicesImpl implements CustomerServices {
         }
 
         return customersRepository.save(newCustomer);
+    }
+
+    @Transactional
+    @Override
+    public Customer update(Customer customer) {
+        Customer customerToUpdate = customersRepository.findById(customer.getCustcode())
+                    .orElseThrow(() -> new EntityNotFoundException("Customer id " + customer.getCustcode() + " not found!"));
+
+        if(customer.getCustcity() != null) {
+            customerToUpdate.setCustcity(customer.getCustcity());
+        }
+
+        if(customer.getCustname() != null) {
+            customerToUpdate.setCustname(customer.getCustname());
+        }
+
+        if(customer.getCustcountry() != null) {
+            customerToUpdate.setCustcountry(customer.getCustcountry());
+        }
+
+        if(customer.getGrade() != null) {
+            customerToUpdate.setGrade(customer.getGrade());
+        }
+
+        if(customer.getPhone() != null) {
+            customerToUpdate.setPhone(customer.getPhone());
+        }
+
+        if(customer.getWorkingarea() != null) {
+            customerToUpdate.setWorkingarea(customer.getWorkingarea());
+        }
+
+        if(customer.getAgent() != null) {
+            customerToUpdate.setAgent(agentServices.findById(customer.getAgent().getAgentcode()));
+        }
+
+        if(customer.hasOutstandingamt) {
+            customerToUpdate.setOutstandingamt(customer.getOutstandingamt());
+        }
+
+        if(customer.hasOpeningamt) {
+            customerToUpdate.setOpeningamt(customer.getOpeningamt());
+        }
+
+        if(customer.hasPaymentamt) {
+            customerToUpdate.setPaymentamt(customer.getPaymentamt());
+        }
+
+        if(customer.hasReceiveamt) {
+            customerToUpdate.setReceiveamt(customer.getReceiveamt());
+        }
+
+        if(customer.getOrders().size() > 0) {
+            customerToUpdate.getOrders().clear();
+
+            for (Order o : customer.getOrders()) {
+                Order order = new Order();
+
+                order.setAdvanceamount(o.getAdvanceamount());
+                order.setOrderdescription(o.getOrderdescription());
+                order.setOrdamount(o.getOrdamount());
+                order.setPayments(o.getPayments());
+                order.setCustomer(customerToUpdate);
+
+                customerToUpdate.getOrders().add(order);
+            }
+        }
+
+        return customersRepository.save(customerToUpdate);
     }
 
     @Override
