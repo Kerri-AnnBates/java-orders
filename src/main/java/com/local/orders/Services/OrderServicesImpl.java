@@ -64,4 +64,40 @@ public class OrderServicesImpl implements OrderServices {
     public List<Order> findAllAdvanceAmountGreaterThan() {
         return ordersRepository.findAllByAdvanceamountGreaterThan(0.00);
     }
+
+    @Transactional
+    @Override
+    public Order update(Order order, long id) {
+        Order orderToUpdate = ordersRepository.findById(order.getOrdnum())
+                .orElseThrow(() -> new EntityNotFoundException("Order " + id + " not found!"));
+
+        if(order.getCustomer() != null) {
+            orderToUpdate.setCustomer(order.getCustomer());
+        }
+
+        if(order.getOrderdescription() != null) {
+            orderToUpdate.setOrderdescription(order.getOrderdescription());
+        }
+
+        if(order.getPayments().size() > 0) {
+            orderToUpdate.getPayments().clear();
+
+            for (Payment pymt : order.getPayments()) {
+                Payment payment = new Payment();
+
+                payment.setPaymentid(pymt.getPaymentid());
+                orderToUpdate.getPayments().add(payment);
+            }
+        }
+
+        if(order.hasAdvanceamount) {
+            orderToUpdate.setAdvanceamount(order.getAdvanceamount());
+        }
+
+        if(order.hasOrdamount) {
+            orderToUpdate.setOrdamount(order.getOrdamount());
+        }
+
+        return ordersRepository.save(orderToUpdate);
+    }
 }

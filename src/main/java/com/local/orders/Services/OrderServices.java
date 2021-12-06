@@ -8,4 +8,5 @@ public interface OrderServices {
     Order save(Order order);
     Order findById(long id);
     List<Order> findAllAdvanceAmountGreaterThan();
+    Order update(Order order, long id);
 }

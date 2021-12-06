@@ -45,4 +45,12 @@ public class OrdersController {
 
         return new ResponseEntity<>(null, responseHeader, HttpStatus.CREATED);
     }
+
+    @PutMapping(value = "/order/{orderNum}")
+    public ResponseEntity<?> updateFullOrder(@Valid @RequestBody Order order, @PathVariable long orderNum) {
+        order.setOrdnum(orderNum);
+        order = orderServices.save(order);
+
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
 }
