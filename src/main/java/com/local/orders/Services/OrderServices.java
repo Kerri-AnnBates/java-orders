@@ -9,4 +9,5 @@ public interface OrderServices {
     Order findById(long id);
     List<Order> findAllAdvanceAmountGreaterThan();
     Order update(Order order, long id);
+    void delete(long id);
 }

@@ -100,4 +100,13 @@ public class OrderServicesImpl implements OrderServices {
 
         return ordersRepository.save(orderToUpdate);
     }
+
+    @Override
+    public void delete(long id) {
+        if(ordersRepository.findById(id).isPresent()) {
+            ordersRepository.deleteById(id);
+        } else {
+            throw new EntityNotFoundException("Order " + id + " not found!");
+        }
+    }
 }
