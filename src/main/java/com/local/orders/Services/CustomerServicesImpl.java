@@ -148,6 +148,7 @@ public class CustomerServicesImpl implements CustomerServices {
         return customersRepository.findByCustnameContainingIgnoreCase(subname);
     }
 
+    @Transactional
     @Override
     public void delete(long id) {
         if(customersRepository.findById(id).isPresent()) {
